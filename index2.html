@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en_US">
+  <head>
+    <meta charset="utf-8">
+    <title>🐵 Finde den Feler🐨</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <style>
+      * { margin: 0; padding: 0; }
+      body {
+        background: linear-gradient(#0071D6, #82C5FF, #ffffff);
+      }
+      html, body, svg {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      g[id^="tulip"]{
+        transition: all 5000ms;
+      }
+      g[id^="window"] {
+        transition: all 2500ms;
+      }
+      g[id^="window"].open {
+        transform: perspective(100px) rotateY(120deg);
+        transform-origin: left;
+      }
+      g[id^="door"] {
+        transition: all 2500ms;
+      }
+      g[id^="door"].open {
+        transform: perspective(100px) rotateY(120deg);
+        transform-origin: left;
+      }
+    </style>
+    <!-- favicon -->
+    <script src="monkeyhouse.js" language="javascript"></script>
+    <!-- // favicon -->
+  </head>
+  <body>
+  <div id="canvas">Please enable javascript to feed the monkeys</div>
+  <svg id="house" height="100%" width="100%" viewBox="0 0 64 64" preserveAspectRatio="xMidYMax meet">
+    <!--<image x="0" y="0" height="60" dth="60" xlink:href="1f3e1.svg" />-->
+  </svg>
+  </body>
+    <script language="javascript">
+      // no scrolling on mobile devices
+      /*document.ontouchstart = function(e) {
+        e.preventDefault();
+      }*/
+      canvas.innerHTML = '';
+      var svg = document.getElementById("house");
+      var board = new Board(svg);
+      board.createTree(55, 1, 1);
+      board.createTree(23, 1.7, 1.8);
+      board.createTulip(45, 39, 6, "#f2b200", "#ffce31");
+      var house = board.createHouse();
+      //board.createTulip(59, 3, 1, "#f2b200", "#ffce31");
+
+      board.createTulip(28, 19, 3, "#8573ED", "#AA9CFC");
+      board.createTulip(26.0, 3.2, 0.9, "#8573ED", "#AA9CFC");
+      board.createTulip(27.1, 1, 0.4, "#8573ED", "#AA9CFC");
+      board.createTulip(29.9, 4, 1, "#8573ED", "#AA9CFC");
+      board.createTulip(30.9, 2, .5, "#8573ED", "#AA9CFC");
+      board.createTulip(33.5, 1.7, 0.5, "#8573ED", "#AA9CFC");
+
+      board.createTulip(59, 3, 1, "#c94747", "#ed4c5c");
+      board.createPineapple(8, 52.7);
+
+      board.createWindow(house, 12, 27, 1, 1);
+      board.createWindow(house, 30.2, 27, 0.66, 1);
+      board.createWindow(house, 27.46, 47, 1, 1);
+      board.createWindow(house, 41.74, 47, 0.66, 1);
+
+      board.createLawn();
+    </script>
+</html>
+

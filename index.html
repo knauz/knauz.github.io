@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en_US">
+  <head>
+    <meta charset="utf-8">
+    <title>🐵 Finde den Fehler🐨</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <style>
+      #canvas {
+        display: block;
+      }
+      .monkey {
+        position: fixed;
+        left: 10px;
+      }
+      .banana {
+        position: fixed;
+      }
+      * { margin: 0; padding: 0; }
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+    </style>
+    <!-- favicon -->
+    <script src="monkeylib.js" language="javascript"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="apple-mobile-web-app-title" content="stef.fi">
+    <meta name="application-name" content="stef.fi">
+    <meta name="msapplication-TileColor" content="#9f00a7">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#fa00ff">
+    <!-- // favicon -->
+  </head>
+  <body height="100%">
+    <div id="canvas">
+      Please enable javascript to feed the monkeys
+    </div>
+  </body>
+    <script language="javascript">
+      // no scrolling on mobile devices
+      document.ontouchstart = function(e) {
+        e.preventDefault();
+      }
+      var canvas = document.getElementById("canvas");
+      canvas.innerHTML = '';
+
+      var monkeySrcs = [ "1f435.svg", "1f648.svg", "1f649.svg" ];
+      var MONKEY_COUNT = monkeySrcs.length;
+      var monkeys = Array(MONKEY_COUNT).fill(undefined);
+
+      for (var i in monkeys) {
+        monkeys[i] = new Monkey(canvas, i);
+      }
+
+      var BANANA_COUNT = 29
+      var bananas = Array(BANANA_COUNT).fill(undefined);
+
+      for (var i in bananas) {
+        bananas[i] = new Banana(canvas);
+      }
+
+      var pixelRatio = 1;//window.devicePixelRatio || 1;
+
+      function resizeCanvas() {
+          canvas.width = document.body.clientWidth * pixelRatio;
+          canvas.height = document.body.clientHeight * pixelRatio;
+          drawStuff();
+        }
+      window.addEventListener('resize', resizeCanvas, false);
+      resizeCanvas();
+      function drawStuff() {
+        console.log("drawing "+monkeys.length+" monkey(s)");
+        for (var monkey of monkeys) {
+          monkey.redraw();
+        }
+        console.log("drawing "+bananas.length+" banana(s)");
+        for (var banana of bananas) {
+          banana.redraw();
+        }
+      }
+    </script>
+</html>
+
