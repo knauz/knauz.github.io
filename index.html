@@ -21,6 +21,20 @@
         height: 100%;
         overflow: hidden;
       }
+      .centered {
+        position: absolute;
+        left:50%;
+        top: 50%;
+        margin-right: -50%;
+        transform:translate(-50%, -50%)
+      }
+      .btn {
+        padding: .8ex;
+        border: 1px solid #000000;
+        border-radius: 3px 3px 3px 3px;
+        text-decoration: none;
+        color: #000000;
+      }
     </style>
     <!-- favicon -->
     <script src="monkeylib.js" language="javascript"></script>
@@ -47,6 +61,7 @@
     <!-- // favicon -->
   </head>
   <body height="100%">
+    <a class="btn centered" href="index2.html">Knödel bestellen</a>
     <div id="canvas">
       Please enable javascript to feed the monkeys
     </div>
