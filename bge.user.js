@@ -15,7 +15,8 @@ body {
     color: hsla(230, 100%, 100%, 1);
     width: 40em;
     margin: 0px auto;
-    font-family: Helvetica;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
     font-size: large;
     line-height: 1.5;
 }
