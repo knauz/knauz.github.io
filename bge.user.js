@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BGE readability enhancer
 // @namespace    http://stef.fi/
-// @version      0.3
+// @version      0.3.1
 // @description  increase readability of some swiss law related websites
 // @author       Alexander Ried, Stephanie Blaettler
 // @match        http://relevancy.bger.ch/php/clir/http/index.php?*
@@ -118,44 +118,47 @@ var settings = `
 </details>
 `;
 
-function getSummary(text, length=0) {
-    if (length == 0) return "";
-
-    text = text.replace(/<.+?>/g, "");
-    return text.substring(0, Math.min(length, text.indexOf(" "))) + "...";
-}
-
-function replacement(match, text) {
-    if (text.search("[A-ZÄÖÜ]{4,}") !== -1 || text.indexOf("BGE") !== -1 || text.replace(/[^0-9]/g,"").length > 6) {
-        return "(<details style='display:inline;'><summary>" + getSummary(text) + "</summary>" + text + "</details>)";
-    }
-    return match;
-}
-
-function set_scheme() {
-    $("body").css("color", this.style.color);
-    $("body").css("background", this.style.background);
-    this.style.borderColor = "blue";
-    $(this).siblings("li").each((i, li) => { li.style.borderColor = "unset"; });
-    GM_setValue("knauz_scheme", $(this).parent().children("li").index(this));
-}
-
-function set_font() {
-    $("body").css("font-family", this.style.fontFamily);
-    this.style.borderColor = "blue";
-    $(this).siblings("li").each((i, li) => { li.style.borderColor = "unset"; });
-    GM_setValue("knauz_font", $(this).parent().children("li").index(this));
-}
-
-function set_size() {
-    var fontSize = parseInt($("body").css("font-size")) || 16;
-    fontSize = fontSize * $(this).data("multiplier");
-    $("body").css("font-size", fontSize + "px");
-    GM_setValue("knauz_size", fontSize);
-}
-
 (function() {
     'use strict';
+
+    function getSummary(text, length=0) {
+        if (length == 0) return "";
+
+        text = text.replace(/<.+?>/g, "");
+        return text.substring(0, Math.min(length, text.indexOf(" "))) + "...";
+    }
+
+    function replacement(match, text) {
+        if (text.search("[A-ZÄÖÜ]{4,}") !== -1 || text.indexOf("BGE") !== -1 || text.replace(/[^0-9]/g,"").length > 6) {
+            return "(<details style='display:inline;'><summary>" + getSummary(text) + "</summary>" + text + "</details>)";
+        }
+        return match;
+    }
+
+    function set_scheme() {
+        $("body").css("color", this.style.color);
+        $("body").css("background", this.style.background);
+        this.style.borderColor = "blue";
+        $(this).siblings("li").each((i, li) => { li.style.borderColor = "unset"; });
+        GM_setValue("knauz_scheme", $(this).parent().children("li").index(this));
+    }
+
+    function set_font() {
+        $("body").css("font-family", this.style.fontFamily);
+        this.style.borderColor = "blue";
+        $(this).siblings("li").each((i, li) => { li.style.borderColor = "unset"; });
+        GM_setValue("knauz_font", $(this).parent().children("li").index(this));
+    }
+
+    function set_size() {
+        var fontSize = parseInt($("body").css("font-size")) || 16;
+        let multiplier = $(this).data("multiplier");
+        let newFontSize = Math.floor(fontSize * multiplier);
+        // catch cases where difference is too small
+        if (newFontSize == fontSize) { newFontSize += (multiplier < 1 ? -1 : 1); }
+        $("body").css("font-size", newFontSize + "px");
+        GM_setValue("knauz_size", newFontSize);
+    }
 
     // bger.ch
     $("link").remove();
@@ -187,7 +190,5 @@ function set_size() {
 
     var size = GM_getValue("knauz_size", 16);
     $("body").css("font-size", size + "px");
-
-
 
 })();
