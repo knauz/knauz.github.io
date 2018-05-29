@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BGE readability enhancer
 // @namespace    http://stef.fi/
-// @version      0.3.4
+// @version      0.3.5
 // @description  increase readability of some swiss law related websites
 // @author       Alexander Ried, Stephanie Blaettler
 // @match        http://relevancy.bger.ch/php/clir/http/index.php?*
@@ -42,23 +42,28 @@ var settingsCss = `
     border: solid hsl(330, 100%, 50%) 0.3rem;
     border-radius: 1rem;
     background: hsl(330, 100%, 50%);
-    max-width: 15em;
+    max-width: 16em;
     color: black;
     overflow: hidden;
     line-height: initial;
     font-size: initial;
+    max-height: 90vh;
   }
   #knauz_settings:hover { opacity: 1; }
-  #knauz_settings[open] { background: hsl(330, 100%, 90%); opacity: 1; }
+  #knauz_settings[open] {
+    background: hsl(330, 100%, 90%);
+    opacity: 1;
+    overflow-y: auto;
+  }
   #knauz_settings summary::-webkit-details-marker { display: none }
   #knauz_settings summary { outline: none; background: hsl(330, 100%, 50%); margin: -0.15rem; border-radius: 1rem 1rem 0 0; }
 
   #knauz_settings > summary:before { display: inline-block; content: "⚙️"; font-size: x-large; margin: 0.3rem; }
   #knauz_settings[open] > summary:after { display: inline-block; content: "Einstellungen"; }
 
-  #knauz_settings section { padding-left: 0.5em; }
+  #knauz_settings section { margin: 1em 0.5em 1em 0.5em; }
 
-  #knauz_settings h2 { font-size: initial; margin: 1em 0 0 0; }
+  #knauz_settings h2 { font-size: initial; }
 
   #knauz_settings ul {
     list-style: none;
