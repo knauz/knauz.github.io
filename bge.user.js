@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BGE readability enhancer
 // @namespace    http://stef.fi/
-// @version      0.3.5
+// @version      0.4.0
 // @description  increase readability of some swiss law related websites
 // @author       Alexander Ried, Stephanie Blaettler
 // @match        http://relevancy.bger.ch/php/clir/http/index.php?*
@@ -89,6 +89,8 @@ var settingsCss = `
     border-radius: 1rem;
   }
 
+  #knauz_settings input[type="range"] { width: 100%; }
+
 `;
 
 var settings = `
@@ -121,6 +123,14 @@ var settings = `
       <li class="icon btn" data-multiplier="0.8">&ndash;</li>
       <li class="icon btn" data-multiplier="1.2">+</li>
     </ul>
+  </section>
+  <section>
+    <h2>Zeilenabstand</h2>
+    <input type="range" id="knauz_lineHeight" min="1.0" max="2.5" step="0.1"></input>
+  </section>
+  <section>
+    <h2>Textbreite</h2>
+    <input type="range" id="knauz_maxWidth" min="20" max="80" step="1"></input>
   </section>
 </details>
 `;
@@ -167,6 +177,16 @@ var settings = `
         GM_setValue("knauz_size", newFontSize);
     }
 
+    function set_lineHeight() {
+        document.body.style.lineHeight = this.valueAsNumber;
+        GM_setValue("knauz_lineHeight", this.valueAsNumber);
+    }
+
+    function set_maxWidth() {
+        document.body.style.maxWidth = this.valueAsNumber + "em";
+        GM_setValue("knauz_maxWidth", this.valueAsNumber);
+    }
+
     // bger.ch
     $("link").remove();
     $("a.noprint").remove();
@@ -197,5 +217,15 @@ var settings = `
 
     var size = GM_getValue("knauz_size", 16);
     $("body").css("font-size", size + "px");
+
+    const lineHeight = document.getElementById("knauz_lineHeight");
+    lineHeight.valueAsNumber = GM_getValue("knauz_lineHeight", 1.5);
+    lineHeight.addEventListener("input", set_lineHeight);
+    lineHeight.dispatchEvent(new Event("input"));
+
+    const maxWidth = document.getElementById("knauz_maxWidth");
+    maxWidth.valueAsNumber = GM_getValue("knauz_maxWidth", 35);
+    maxWidth.addEventListener("input", set_maxWidth);
+    maxWidth.dispatchEvent(new Event("input"));
 
 })();
