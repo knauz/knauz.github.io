@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BGE readability enhancer
 // @namespace    http://stef.fi/
-// @version      0.3.3
+// @version      0.3.4
 // @description  increase readability of some swiss law related websites
 // @author       Alexander Ried, Stephanie Blaettler
 // @match        http://relevancy.bger.ch/php/clir/http/index.php?*
@@ -25,7 +25,8 @@ body {
     line-height: 1.5;
 }
 a { color: hsla(230, 100%, 100%, 1); }
-details[open] { background: darkgrey }
+details[open] { outline: solid; }
+details summary { outline: none; }
 .big { font-size: larger; }
 .bold { font-weight: bold; }
 .paraatf { margin-bottom: 1em; }
